@@ -9,8 +9,8 @@ class List extends Component {
   _renderRow(item) {
     return(
       <RowList
-        icon={item.icon}
-        name={item.name}
+        icon={`https://www.cryptocompare.com/${item.ImageUrl}`}
+        name={item.CoinName}
         value={item.netWorth}
       />
     )
@@ -23,9 +23,10 @@ class List extends Component {
   }
 
   render() {
+    const { data } = this.props
     return(
       <FlatList
-        data={ cryptoInfo }
+        data={ Object.values(data) }
         renderItem={({item}) => this._renderRow(item)}
         ItemSeparatorComponent={() => this._renderSeperator()}
         style={{flex: 1}}
