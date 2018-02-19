@@ -4,12 +4,12 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
 	Text
-} from 'react-native';
+} from 'react-native'
 import { connect } from 'react-redux'
 import Carousel from '../../../Components/Carousel/Carousel'
 import List from '../../../Components/List/List'
@@ -32,7 +32,7 @@ class HomeScreen extends Component {
 					<Carousel/>
 					<List data={results}/>
 				</View>
-			);
+			)
 		}
 
 		return (

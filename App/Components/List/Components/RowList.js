@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { Actions } from 'react-native-router-flux'
 
 const styles = StyleSheet.create({
   container:{
@@ -26,20 +27,14 @@ const styles = StyleSheet.create({
 const RowList = ({
     icon,
     name,
-    value
+    symbol
   }) => {
     return(
       <View style={styles.container}>
-
-        <View style={styles.leftContainer}>
+        <TouchableOpacity style={styles.leftContainer} onPress={ () => { Actions.coinDetail({ symbol }) } } >
           <Image style={styles.icon} source={{uri: icon}}/>
           <Text>{name}</Text>
-        </View>
-
-        <View>
-          <Text>{value}</Text>
-        </View>
-
+        </TouchableOpacity>
       </View>
     )
 };
