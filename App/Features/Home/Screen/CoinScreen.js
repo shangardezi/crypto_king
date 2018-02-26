@@ -1,22 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text } from 'react-native'
-import { getCoinsDetailRequest } from '../../../Redux/Actions/applicationActions'
+import { StyleSheet, View, Text, WebView } from 'react-native'
+import Header from '../../../Components/Header/Header'
+import { getCoinsDetailRequest, getCoinPriceRequest } from '../../../Redux/Actions/coinsActions'
+import {getCoinPriceById, getGeneralCoinInfoById} from "../../../Redux/Selectors/coinsSelector"
+import PriceList from '../../../Components/PriceList/PriceList'
 
 class CoinScreen extends Component {
 
 	componentDidMount() {
-		const { getCoinsDetailRequest, symbol } = this.props
-		getCoinsDetailRequest(symbol)
+		const { getCoinsDetailRequest, id, getCoinPriceRequest, symbol } = this.props
+		getCoinsDetailRequest(id)
+		getCoinPriceRequest(symbol)
 	}
 
 	render() {
-		const { results } = this.props
+		const { results, priceData } = this.props
+
+		if(results) {
+			return (
+				<View style={styles.container}>
+					<Header data={results}></Header>
+					<View style={styles.container}>
+						<WebView automaticallyAdjustContentInsets={false} scalesPageToFit={false} source={{html: results.Description}} />
+					</View>
+
+					{ priceData && <View style={styles.container}>
+						<PriceList data={priceData} />
+					</View> }
+				</View>
+			)
+		}
+
 		return (
-			<View style={styles.container}>
-				<Text>EUR: {results.EUR}</Text>
-				<Text>USD: {results.USD}</Text>
-			</View>
+			<Text>Loading...</Text>
 		)
 	}
 }
@@ -25,15 +42,18 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'flex-start'
+
 	}
 })
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
 	return {
-		results: state.coins.results
+		results: getGeneralCoinInfoById(state, props.symbol),
+		priceData: getCoinPriceById(state, props.symbol)
 	}
 }
 
 export default connect(mapStateToProps, {
-	getCoinsDetailRequest
+	getCoinsDetailRequest,
+	getCoinPriceRequest
 })(CoinScreen)

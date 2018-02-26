@@ -27,11 +27,12 @@ const styles = StyleSheet.create({
 const RowList = ({
     icon,
     name,
+    id,
     symbol
   }) => {
     return(
       <View style={styles.container}>
-        <TouchableOpacity style={styles.leftContainer} onPress={ () => { Actions.coinDetail({ symbol }) } } >
+        <TouchableOpacity style={styles.leftContainer} onPress={ () => { Actions.coinDetail({ id, symbol }) } } >
           <Image style={styles.icon} source={{uri: icon}}/>
           <Text>{name}</Text>
         </TouchableOpacity>

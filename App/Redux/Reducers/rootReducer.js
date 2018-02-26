@@ -1,12 +1,18 @@
 import { combineReducers } from 'redux'
-import applicationReducer from './applicationReducer'
 import generateStore from '../Store/store'
 import { coinsReducer } from "./coinsReducer"
+import { homeScreenReducer} from "./homeScreenReducer";
+import { coinScreenReducer} from "./coinScreenReducer";
 
 const createReducers = () => {
 	const rootReducer = combineReducers({
-		application: applicationReducer,
-		coins: coinsReducer
+		ui: combineReducers({
+			homeScreen: homeScreenReducer,
+			coinScreen: coinScreenReducer
+		}),
+		data: combineReducers({
+			coins: coinsReducer
+		})
 	})
 
 	return generateStore(rootReducer)
