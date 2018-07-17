@@ -4,16 +4,17 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
 	Text
-} from 'react-native';
+} from 'react-native'
 import { connect } from 'react-redux'
 import Carousel from '../../../Components/Carousel/Carousel'
 import List from '../../../Components/List/List'
-import { getCoinsRequest } from '../../../Redux/Actions/applicationActions'
+import { getCoinsRequest } from '../../../Redux/Actions/coinsActions'
+import { getCoins } from '../../../Redux/Selectors/coinsSelector'
 
 
 class HomeScreen extends Component {
@@ -32,7 +33,7 @@ class HomeScreen extends Component {
 					<Carousel/>
 					<List data={results}/>
 				</View>
-			);
+			)
 		}
 
 		return (
@@ -50,8 +51,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+	const { homeScreen } = state.ui
+	const { coinIds } = homeScreen
 	return {
-		results: state.coins.results
+		results: getCoins(state, coinIds)
 	}
 }
 

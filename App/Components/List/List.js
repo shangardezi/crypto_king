@@ -11,7 +11,8 @@ class List extends Component {
       <RowList
         icon={`https://www.cryptocompare.com/${item.ImageUrl}`}
         name={item.CoinName}
-        value={item.netWorth}
+        id={item.Id}
+        symbol={item.Symbol}
       />
     )
   }

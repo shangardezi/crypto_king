@@ -4,10 +4,11 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { Router, Stack, Scene} from 'react-native-router-flux';
-import HomeScreen from '../Features/Home/Screen/HomeScreen';
-import { StyleSheet } from 'react-native';
+import React, { Component } from 'react'
+import { Router, Stack, Scene} from 'react-native-router-flux'
+import HomeScreen from '../Features/Home/Screen/HomeScreen'
+import CoinScreen from '../Features/Home/Screen/CoinScreen'
+import { StyleSheet } from 'react-native'
 import createReducers from '../Redux/Reducers/rootReducer'
 import { Provider } from 'react-redux'
 
@@ -27,14 +28,9 @@ const App = () => {
   return(
   	<Provider store={state}>
     <Router>
-      <Stack>
-        <Scene
-          navigationBarStyle={styles.navBar}
-          titleStyle={styles.titleStyle}
-          key={'home'}
-          component={HomeScreen}
-          title={'Home'}
-        />
+      <Stack key="root">
+        <Scene key={'home'} navigationBarStyle={styles.navBar} titleStyle={styles.titleStyle} component={HomeScreen} title={'Home'}/>
+        <Scene key={'coinDetail'} navigationBarStyle={styles.navBar} titleStyle={styles.titleStyle} component={CoinScreen} title={'Coin Price'}/>
       </Stack>
     </Router>
 		</Provider>
